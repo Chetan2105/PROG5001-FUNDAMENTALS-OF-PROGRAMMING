@@ -1,0 +1,32 @@
+Pseudo Code for Highest and Lowest Marks (Algorithm 1)
+
+Algo 1: Highest and Lowest Marks
+
+Initialize high to -1 and low to 31.
+For each mark in the list of students marks:
+If the mark is greater than high, update high to this mark.
+If the mark is less than low, update low to this mark.
+Print high and low.
+
+
+
+
+
+Pseudo Code for Mean and Standard Deviation (Algorithm 2)
+Algo 2:  Mean and Standard Deviation
+
+Mean Calculation:
+
+Initialize total to 0.
+For each mark in the list of students marks, add it to total.
+Divide sum by the number of students to get the mean.
+
+Standard Deviation Calculation:
+
+Initialize varSum to 0.
+For each mark in the list of students  marks:
+Calculate the square of the difference between the mark and the mean, then add it to varSum.
+Divide varSum by the no. of students to get the var.
+Take the square root of var to get the standard deviation.
+Print the mean and standard deviation.
+

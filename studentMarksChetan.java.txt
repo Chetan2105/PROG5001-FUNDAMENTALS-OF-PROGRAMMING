@@ -1,0 +1,98 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class StudentMarks {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Inputting assignment name from user
+        System.out.print("Enter assignment name: ");
+        String assignName = scanner.nextLine();
+
+
+        // Inputting marks for thirty students
+        ArrayList<Integer> studentMarks = new ArrayList<>();
+        int marks;
+        System.out.println("Enter marks for 30 students between 0 and 30 : ");
+        for (int i = 0; i < 30; i++) {
+            while (true) {
+                System.out.print("Mark for student " + (i + 1) + ": ");
+                marks = scanner.nextInt();
+                if (marks >= 0 && marks <= 30) {
+                    studentMarks.add(marks);
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please re-enter mark between 0 and 30");
+                }
+            }
+        }
+
+
+        // Printing assignment name and marks
+        System.out.println("\nAssignment: " + assignName);
+        System.out.println("Marks: " + studentMarks);
+
+
+        // Calculating highest and lowest marks
+        int maximum = highestMark(studentMarks);
+        int minimum = lowestMark(studentMarks);
+        System.out.println("Highest mark: " + maximum);
+        System.out.println("Lowest mark: " + minimum);
+
+
+        // Calculating mean and standard deviation
+        double mean = calculateMean(studentMarks);
+        double standDeviation = calculateStandDeviation(studentMarks, mean);
+        System.out.println("Mean: " + mean);
+        System.out.println("Standard Deviation: " + standDeviation);
+        scanner.close();
+    }
+
+
+    // Highest mark
+    public static int highestMark(ArrayList<Integer> marks) {
+        int high = -1;
+        for (int mark : marks) {
+            if (mark > high) {
+                high = mark;
+            }
+        }
+        return high;
+    }
+
+
+    // Lowest mark
+    public static int lowestMark(ArrayList<Integer> marks) {
+        int low = 31;
+        for (int mark : marks) {
+            if (mark < low) {
+                low = mark;
+            }
+        }
+        return low;
+    }
+
+
+    // Mean
+    public static double calculateMean(ArrayList<Integer> marks) {
+        int total = 0;
+        for (int mark : marks) {
+            total += mark;
+        }
+        return (double) total / marks.size();
+    }
+
+
+    // Standard deviation
+    public static double calculateStandDeviation(ArrayList<Integer> marks, double mean) {
+        double varSum = 0;
+        for (int mark : marks) {
+            varSum += Math.pow(mark - mean, 2);
+        }
+        double var = varSum / marks.size();
+        return Math.sqrt(var);
+    }
+}
+
+
