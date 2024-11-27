@@ -1,0 +1,138 @@
+STEP 1 -- Algorithm  to print the list of students with total marks less than a certain threshold value
+
+Algorithm: FilterStudentsBelowThresholdValue
+Input: List of students with their marks, Threshold value
+Output: List of students with total marks below the threshold value
+
+Steps:
+1. If the student list is empty:
+    a. Print "No students loaded."
+    b. Exit the algorithm.
+2. Prompt the user to enter the threshold value.
+3. Initialize an empty list to store filtered students.
+4. For each student in the student list:
+    a. Calculate the total marks as the sum of all assessment marks.
+    b. If the total marks are less than the threshold:
+        i. Add the student to the filtered list.
+5. If the filtered list is empty:
+    a. Print "No students found below the threshold value."
+6. Otherwise:
+    a. Print "Students below the threshold value:"
+    b. Initialize a serial number as 1.
+    c. For each student in the filtered list:
+        i. Print the serial number and student details.
+        ii. Increment the serial number.
+7. End.
+
+
+STEP 2-- Implementation of Algorithm 3 in Java
+
+private void filterBelowThresholdValue(Scanner scanner) {
+    // Step 1: Check if the list of students is empty
+    if (students.isEmpty()) {
+        System.out.println("No students loaded.");
+        return;
+    }
+
+    // Step 2: Prompt user to enter the threshold value
+    System.out.print("Enter the threshold: ");
+    double threshold = scanner.nextDouble();  // Get the threshold value as input
+    scanner.nextLine();  // Consume newline character
+
+    // Step 3: Initialize an empty list for filtered students
+    List<Student> filteredStudents = new ArrayList<>();
+
+    // Step 4: Iterate through the list of students
+    for (Student student : students) {
+        // Calculate total marks for the student
+        double totalMarks = student.getMark1() + student.getMark2() + student.getMark3();
+        // Check if total marks are below the threshold
+        if (totalMarks < threshold) {
+            filteredStudents.add(student);
+        }
+    }
+
+    // Step 5: Check if any students were filtered
+    if (filteredStudents.isEmpty()) {
+        System.out.println("No students found below the threshold value.");
+    } else {
+        // Step 6: Display the filtered students
+        System.out.println("Students below the threshold value:");
+        int serialNo = 1;  // Serial number for listing
+        for (Student student : filteredStudents) {
+            System.out.printf("%d. %s\n", serialNo, student);
+            serialNo++;
+        }
+    }
+}
+
+
+
+STEP 3 -- Algorithm to print the top 5 students with the highest total marks and the top 5 students with the lowest total marks.
+   
+Algorithm: FindTopBottomStudents
+Input: List of students with their total marks
+Output: Top 5 students and Bottom 5 students with their total marks and serial numbers
+
+Steps:
+1. If the student list is empty, print "No students loaded." and exit.
+2. Perform a manual sorting of the student list in ascending order of total marks:
+    a. For each position i in the list from 0 to N-1:
+        i. Assume the smallest value is at position i (minIndex = i).
+        ii. For each position j from i+1 to N:
+            - If total marks at position j is less than total marks at minIndex, update minIndex to j.
+        iii. Swap the student at position i with the student at minIndex.
+3. Print the Top 5 Students:
+    a. Initialize serial number as 1.
+    b. Start from the last student in the sorted list (highest marks) and move backward.
+    c. Print the student details for up to 5 students or until the start of the list is reached.
+    d. Increment the serial number for each student.
+4. Print the Bottom 5 Students:
+    a. Initialize serial number as 1.
+    b. Start from the first student in the sorted list (lowest marks) and move forward.
+    c. Print the student details for up to 5 students or until the end of the list is reached.
+    d. Increment the serial number for each student.
+5. End.
+
+
+STEP 4 -- Implementation of Algorithm 4 in Java
+
+private void showTopBottomStudents() {
+    // Step 1: Check if the list of students is empty
+    if (students.isEmpty()) {
+        System.out.println("No students loaded.");
+        return;
+    }
+
+    // Step 2: Manual sorting of students in ascending order of total marks
+    for (int i = 0; i < students.size() - 1; i++) {
+        int minIndex = i;
+        for (int j = i + 1; j < students.size(); j++) {
+            double totalMarksJ = students.get(j).getMark1() + students.get(j).getMark2() + students.get(j).getMark3();
+            double totalMarksMin = students.get(minIndex).getMark1() + students.get(minIndex).getMark2() + students.get(minIndex).getMark3();
+            if (totalMarksJ < totalMarksMin) {
+                minIndex = j; // Update the index of the smallest element
+            }
+        }
+        // Swap the current student with the one having the smallest total marks
+        Student temp = students.get(i);
+        students.set(i, students.get(minIndex));
+        students.set(minIndex, temp);
+    }
+
+    // Step 3: Display Top 5 Students
+    System.out.println("\nTop 5 Students:");
+    int serialNo = 1; // Serial number for Top 5
+    for (int j = students.size() - 1; j >= Math.max(students.size() - 5, 0); j--) {
+        System.out.printf("%d. %s\n", serialNo, students.get(j));
+        serialNo++;
+    }
+
+    // Step 4: Display Bottom 5 Students
+    System.out.println("\nBottom 5 Students:");
+    serialNo = 1; // Serial number for Bottom 5
+    for (int j = 0; j < Math.min(5, students.size()); j++) {
+        System.out.printf("%d. %s\n", serialNo, students.get(j));
+        serialNo++;
+    }
+}
